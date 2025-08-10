@@ -35,9 +35,13 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
+          python_version: '3.13'
           cache: 'pip'
       - name: Install needed pip packages
         run: pip install -r requirements.txt
+      
+      - name: Install CMAP library
+        run: pip install cmap
       
       - name: Generate the epub
         run: make epub
