@@ -31,6 +31,9 @@ jobs:
       - name: Generate the epub
         run: make epub
       
+      - name: Version and move the epub directly under build
+        run: mv build/epub/OPNsense.epub build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.epub
+      
       # Can't get this to work
       #- name: Generate the pdf
       #  run: make latexpdf
@@ -38,13 +41,13 @@ jobs:
       - name: Generate PDF from epub
         uses: jensvog/ebook-convert-action@v1
         with:
-          in: build/epub/OPNsense.epub
-          out: build/OPNsense.pdf
+          in: build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.epub
+          out: build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.pdf
       
       - name: Upload epub and pdf
         uses: actions/upload-artifact@v4
         with:
           name: opnsense-docs-${{ steps.set_build_version.outputs.BUILD_VERSION }}
           path: |
-            build/epub/OPNsense.epub
-            build/OPNsense.pdf
+            build/OPNsense*.epub
+            build/OPNsense*.pdf
