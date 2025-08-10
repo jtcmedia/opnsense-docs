@@ -26,8 +26,15 @@ jobs:
       - name: Generate the epub
         run: make epub
       
-      - name: Generate the pdf
-        run: make latexpdfja
+      # Can't get this to work
+      #- name: Generate the pdf
+      #  run: make latexpdf
+
+      - name: Generate PDF from epub
+        uses: jensvog/ebook-convert-action@v1
+        with:
+          in: build/epub/OPNsense.epub
+          out: build/OPNsense.pdf
       
       - name: Upload epub and pdf
         uses: actions/upload-artifact@v4
