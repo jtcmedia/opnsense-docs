@@ -1,0 +1,51 @@
+name: MakePDFs
+
+on:
+  issues:
+    types:
+      - closed
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  state_event_type:
+    runs-on: ubuntu-latest
+    steps:
+    - name: if_issue
+      if: github.event.issue
+      run: |
+        echo An issue was closed
+    - name: if_pr
+      if: github.event.pull_request
+      run: |
+        echo A pull request was closed
+
+  generate_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo code
+        uses: actions/checkout@v4
+
+      - name: Install needed Ubuntu Pkgs
+        run: |
+          sudo apt update
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          cache: 'pip'
+      - name: Install needed pip packages
+        run: pip install -r requirements.txt
+      
+      - name: Generate the epub
+        run: make epub
+      
+      - name: Generate the pdf
+        run: make latexpdf
+      
+      - name: Upload epub and pdf
+        uses: actions/upload-artifact@v4
+        with:
+          path: build
