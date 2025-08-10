@@ -1,27 +1,9 @@
 name: Make Docs
 
 on:
-  issues:
-    types:
-      - closed
-  pull_request:
-    types:
-      - closed
-  workflow_dispatch:
+  push:
 
 jobs:
-  state_event_type:
-    runs-on: ubuntu-latest
-    steps:
-    - name: if_issue
-      if: github.event.issue
-      run: |
-        echo An issue was closed
-    - name: if_pr
-      if: github.event.pull_request
-      run: |
-        echo A pull request was closed
-
   generate_docs:
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +27,7 @@ jobs:
         run: make epub
       
       - name: Generate the pdf
-        run: make latexpdf
+        run: make latexpdfja
       
       - name: Upload epub and pdf
         uses: actions/upload-artifact@v4
