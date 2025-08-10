@@ -10,6 +10,11 @@ jobs:
       - name: Checkout repo code
         uses: actions/checkout@v4
 
+      - name: Set Build Version
+        id: set_build_version
+        run: |
+          echo "BUILD_VERSION=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT 
+
       - name: Install needed Ubuntu Pkgs
         run: |
           sudo apt update
@@ -39,4 +44,7 @@ jobs:
       - name: Upload epub and pdf
         uses: actions/upload-artifact@v4
         with:
-          path: build
+          name: opnsense-docs-${{ steps.set_build_version.outputs.BUILD_VERSION }}
+          path: |
+            build/epub/OPNsense.epub
+            build/OPNsense.pdf
