@@ -31,17 +31,15 @@ jobs:
       - name: Install needed Ubuntu Pkgs
         run: |
           sudo apt update
-          sudo apt install -y latexmk
+          sudo apt install -y latexmk texlive-latex-extra 
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python_version: '3.13'
+          python-version: '3.13'
           cache: 'pip'
       - name: Install needed pip packages
         run: pip install -r requirements.txt
-      
-      - name: Install CMAP library
-        run: pip install cmap
       
       - name: Generate the epub
         run: make epub
