@@ -37,6 +37,12 @@ jobs:
       - name: Version and move the epub directly under build
         run: mv build/epub/OPNsense.epub build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.epub
       
+      - name: Generate a single HTML file
+        run: make singlehtml
+
+      - name: Version and move the html directly under build
+        run: mv build/singlehtml/OPNsense.html build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.html
+      
       # Can't get this to work
       #- name: Generate the pdf
       #  run: make latexpdf
@@ -47,10 +53,11 @@ jobs:
           in: build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.epub
           out: build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.pdf
       
-      - name: Upload epub and pdf
+      - name: Upload epub, html, and pdf
         uses: actions/upload-artifact@v4
         with:
           name: opnsense-docs-${{ steps.set_build_version.outputs.BUILD_VERSION }}
           path: |
             build/OPNsense*.epub
+            build/OPNsense*.html
             build/OPNsense*.pdf
