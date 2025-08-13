@@ -41,7 +41,7 @@ jobs:
         run: make singlehtml
 
       - name: Version and move the html directly under build
-        run: mv build/singlehtml/OPNsense.html build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.html
+        run: mv build/singlehtml/*.html build/OPNsense-${{ steps.set_build_version.outputs.BUILD_VERSION }}.html
       
       # Can't get this to work
       #- name: Generate the pdf
