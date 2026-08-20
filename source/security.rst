@@ -52,12 +52,108 @@ If all goes well, a report like the one below will be shown:
 
 
 ------------------------------------------------------------
+Assessing risks
+------------------------------------------------------------
+
+As with all software, understanding how software is being developed helps a lot assessing the risks involved when using with it.
+Most software components are built on top of other components, which all have their own security challenges. From an architecture
+perspective, we do try to minimize the external dependencies as much as possible, but obviously need various software components
+for the broad spectrum of features that we offer.
+
+When we add functionality ourselves (supported under :doc:`tiers 1 and 2 </support>`), we tend to ask ourselves at least the following questions:
+
+* Does the new component we plan to add replace something we already use, and how are we going to make sure we don't end up with just one more component?
+
+  * A good example of this is the use of `tabulator <https://www.tabulator.info/>`__ which gradually replaced bootgrid we used earlier
+
+* How active is the development of the component in question, and what level of support can be expected?
+* What is the expected maintenance burden, and is it reasonable in relation to the added functionality?
+
+  * When a library offers minimal additional functionality compared to the tools already available in the language being used, it's often better to build and maintain the functionality ourselves to keep dependencies more manageable.
+  * Also, when we already have a component offering almost the same functionality, does adding another one make sense?
+
+* Could we [easily] replace a component with an alternative or maintain the software ourselves?
+
+  * An example of this is our previous use of Phalcon to support most of our MVC code, which has since been largely rewritten using standard PHP code.
+
+
+Although our development manual contains a lot of detail on how we work, it doesn't hurt to explain our approach here at a high level,
+with more focus on its security aspects. Different components in the stack may take slightly different approaches to handling security issues.
+While planning and building releases, all these topics are taken under consideration.
+
+
+[FreeBSD] Base system and kernel
+............................................................
+
+Although we prefer to use release versions of our operating system software, the release cadence between OPNsense and FreeBSD
+differs, which in practice means we start with a release version (e.g. :code:`15.1`) and track upstream security issues when
+planning releases on our end. The FreeBSD advisories are publicly available [1]_. in case of doubt,
+the ones we implemented are mentioned in our release notes [2]_. and recorded in our publicly available source repository [3]_.
+
+.. [1] https://www.freebsd.org/security/advisories/
+.. [2] https://docs.opnsense.org/releases.html
+.. [3] https://github.com/opnsense/src
+
+
+[ports] External software
+............................................................
+
+External software in most BSD's is managed via a "ports collection", which is more or less a recipe book describing
+how to construct different pieces of software.  OPNsense hosts a (partial) mirror of the upstream collection with
+some specific software additions on top for binary software we maintain ourselves.
+
+In order to track vulnerabilities, one can use VuXML [4]_ ., which can also be queried directly from the OPNsense interface using
+the "security audit" feature in the firmware section.
+
+Although not all security incidents on software installed may have impact on your setup, this information offers insights
+into the risks involved with your running configuration.
+
+Below an example of a report extracted via the audit feature.
+
+.. code-block:: text
+   :linenos:
+
+    python313-3.13.15 is vulnerable:
+      Python -- poplib module, when passed a user-controlled command, can have additional commands injected using newlines
+      CVE: CVE-2025-15367
+      WWW: https://vuxml.FreeBSD.org/freebsd/6d3488ae-2e0f-11f1-88c7-00a098b42aeb.html
+
+The first line (1) explains which software package the jeopardy refers to, next (2) there are some details about the incident which
+helps assessing if this particular issue impacts you, when one or more CVE's are attached you can find them in the following lines (3),
+followed by a link to more information (4).
+
+When planning releases, we use the same information to determine impact on our product.
+
+
+.. [4] https://vuxml.freebsd.org/freebsd/index.html
+
+
+[tier 1 & 2 software] OPNsense
+............................................................
+
+As mentioned further below, security incidents in our software can be reported via our GitHub tracker [5]_ in which
+case users can be informed and optionally, depending on the type of problem, a CVE may be assigned.
+
+We work closely with security researchers around the world to identify and address issues that may have slipped into our software,
+just as we do with the software we use.
+
+These days, we tend to use this tracker as our primary source of communication when it comes to security-relevant issues.
+
+Our release notes [6]_ also refer to these fixes.
+
+
+.. [5] https://github.com/opnsense/core/security/advisories?state=published
+.. [6] https://docs.opnsense.org/releases.html
+
+
+------------------------------------------------------------
 Upstream vulnerabilities
 ------------------------------------------------------------
 
 Since OPNsense is a collection of open source software, when finding an issue, it is always a good idea to
 inspect where it should be fixed first. In case you do not know or are not sure, you can still ask on our end, just
 know that we do not have the manpower to act as an intermediary between various projects.
+
 
 ------------------------------------------------------------
 Deployment considerations
