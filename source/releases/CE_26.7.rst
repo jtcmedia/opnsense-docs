@@ -135,6 +135,10 @@ Here are the full patch notes:
 * ports: rrdtool 1.11.0 `[22] <https://github.com/oetiker/rrdtool-1.x/releases/tag/v1.11.0>`__ 
 * ports: sqlite 3.53.4 `[23] <https://sqlite.org/releaselog/3_53_4.html>`__ 
 
+A hotfix release was issued as 26.7.3_1:
+
+* firewall: source NAT: fix faulty import removal
+
 
 
 --------------------------------------------------------------------------
