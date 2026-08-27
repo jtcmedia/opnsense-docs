@@ -336,12 +336,15 @@ Settings
 
     .. tab:: Interface
 
-        ==================== ====================================================================================================
-        **Option**           **Description**
-        ==================== ====================================================================================================
-        **Invert Interface** Use all but selected interfaces
-        **Interface**        Select the interfaces that should match this rule.
-        ==================== ====================================================================================================
+        ============================== ====================================================================================================
+        **Option**                     **Description**
+        ============================== ====================================================================================================
+        **Invert interface (rule)**    Match packets on all but the selected rule interface.
+        **Interface (rule)**           Only match packets on the selected rule interfaces or groups.
+        **Invert interface (origin)**  Match packets that were not received on the selected interface.
+        **Interface (origin)**         Only match packets that were initially received on the selected interfaces or groups. This is
+                                       mostly relevant for out direction rules when creating a security zone ruleset.
+        ============================== ====================================================================================================
 
     .. tab:: Filter
 
@@ -370,6 +373,7 @@ Settings
         **Log**                Log packets that are handled by this rule
         **TCP flags**          Use this to choose TCP flags that must be set this rule to match.
         **TCP flags [out of]** Use this to choose TCP flags that must be cleared for this rule to match.
+        **TCP flags any**      Match any combination of TCP flags.
         **Schedule**           Rules can also be scheduled to be active at specific days or time ranges, you can create schedules in
                                :menuselection:`Firewall --> Advanced --> Schedules` and select one in the rule. If the rule times out
                                the states will be removed and the rule will be skipped. This means, if there is still a matching rule
@@ -473,6 +477,20 @@ Settings
                             time.
         **Match local tag** Used to specify that packets must already be tagged with the given tag in order to match the rule.
         =================== ====================================================================================================
+
+    .. tab:: Audit
+
+        ========================= ====================================================================================================
+        **Option**                **Description**
+        ========================= ====================================================================================================
+        **Created: Username**     The user who created the rule.
+        **Created: Time**         The time at which the rule was created.
+        **Created: Description**  Additional information about how the rule was created.
+        **Updated: Username**     The user who last updated the rule.
+        **Updated: Time**         The time at which the rule was last updated.
+        **Updated: Description**  Additional information about how the rule was last updated.
+        **Note**                  Add a note to describe why this rule was created or changed.
+        ========================= ====================================================================================================
 
 Divert-to
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -796,4 +814,3 @@ Inspecting used netmasks is also a good idea, intending to match a host but prov
 Last but not least, remember rules are matched in order and the default (inbound) policy is :code:`block` if nothing else
 is specified, since we match traffic on :code:`inbound`, make sure to add rules where traffic originates from
 (e.g. :code:`lan` for traffic leaving your network, the return should normally be allowed by state).
-
