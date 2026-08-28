@@ -135,9 +135,19 @@ Here are the full patch notes:
 * ports: rrdtool 1.11.0 `[22] <https://github.com/oetiker/rrdtool-1.x/releases/tag/v1.11.0>`__ 
 * ports: sqlite 3.53.4 `[23] <https://sqlite.org/releaselog/3_53_4.html>`__ 
 
-A hotfix release was issued as 26.7.3_1:
+A hotfix release was issued as 26.7.3_2:
 
+* interfaces: add missing PPP support to interface_parent_devices()
 * firewall: source NAT: fix faulty import removal
+
+A hotfix release was issued as 26.7.3_8:
+
+* system: normalize output of get_nameservers()
+* interfaces: prevent inline reloads of VLANs via rc.linkup
+* interfaces: batch VIP post-reload for proxyarp/pfsync
+* monit: use LIBXML_NOCDATA on XML fetch
+* ui: improve form matching for help/advanced
+* ui: fix _showMaximized() height calculation when mobile navigation triggers below 768px width
 
 
 
