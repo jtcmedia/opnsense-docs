@@ -107,6 +107,28 @@ Here are the full patch notes for the initial release:
 * ports: syslog-ng 4.12.0 `[20] <https://github.com/syslog-ng/syslog-ng/releases/tag/syslog-ng-4.12.0>`__ 
 * ports: unbound 1.26.0 `[21] <https://nlnetlabs.nl/projects/unbound/download/#unbound-1-26-0>`__ 
 
+Here are the full patch notes for patch release 1:
+
+* system: audit log injection via login username in auth_log() `[22] <https://github.com/opnsense/core/security/advisories/GHSA-jjm2-jg4p-3v9q>`__ 
+* system: offer post-quantum mldsa44-ed25519 OpenSSH server host key
+* system: do not regenerate all OpenSSH key files when adding new key types
+* system: use created user name for change event (contributed by Julian Pawlowski)
+* system: fix server certificate purpose detection for EC
+* system: approximate user being expired for the grid view icon
+* firewall: remove 2a10::/12 from bogonsv6.sample (contributed by Belgarion)
+* captive portal: exclude IPv4 from roaming logic `[23] <https://github.com/opnsense/core/security/advisories/GHSA-864r-q4j5-5mjq>`__ 
+* plugins: os-OPNWAF 2.4
+* src: posixshm: fix a TOCTOU race in the FIOSSHMLPGCNF handler `[24] <https://www.freebsd.org/security/advisories/FreeBSD-SA-26:63.posixshm.asc>`__ 
+* src: tty: revalidate after dropping the tty lock in ioctl handlers `[25] <https://www.freebsd.org/security/advisories/FreeBSD-SA-26:62.tty.asc>`__ 
+* src: ppp: fix multiple vulnerabilities `[26] <https://www.freebsd.org/security/advisories/FreeBSD-SA-26:60.ppp.asc>`__ 
+* src: openssl: fix multiple vulnerabilities `[27] <https://www.freebsd.org/security/advisories/FreeBSD-SA-26:61.openssl.asc>`__ 
+* src: dsp: fix a potential use-after-free in dsp_oss_syncstart() `[28] <https://www.freebsd.org/security/advisories/FreeBSD-SA-26:58.sound.asc>`__ 
+* src: hwpmc: fix the execve handler `[29] <https://www.freebsd.org/security/advisories/FreeBSD-SA-26:56.hwpmc.asc>`__ 
+* src: ucode: fix validation on Intel platforms `[30] <https://www.freebsd.org/security/advisories/FreeBSD-EN-26:20.microcode.asc>`__ 
+* ports: openssh 10.5p1 `[31] <https://www.openssh.com/txt/release-10.5>`__ 
+* ports: openssl 3.0.22 `[32] <https://github.com/openssl/openssl/blob/openssl-3.0/CHANGES.md>`__ 
+
+
 
 --------------------------------------------------------------------------
 26.4.1 (June 16, 2026)
